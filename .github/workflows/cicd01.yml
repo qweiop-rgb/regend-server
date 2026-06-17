@@ -23,4 +23,13 @@ jobs:
         run:
           echo $GITHUB_SHA
           ecno $GITHUB_REPOSITORY
+          echo "3. 워크플로우 실행한 놈 - $GITHUB_ACTOR"
+          echo "4. 현재 실행중인 브랜치 - $GITBUB_REF_NAME"
+          echo "5. 현재 워크플로우 실행번호 - $GITBUB_RUN_NUMBER"
+          echo "6. 워크플로우 발생 이벤트 - $GITBUB_EVENT_NAME"
+          echo "7. 현재 액션이 돌아가는 os - $GITBUB_OS"
+          echo "8. 가상환경 기본작업 경로 - $GITBUB_WORKSPACE"
+
+
+
 
