@@ -30,6 +30,11 @@ jobs:
           echo "7. 현재 액션이 돌아가는 os - $GITBUB_OS"
           echo "8. 가상환경 기본작업 경로 - $GITBUB_WORKSPACE"
 
-
-
-
+      - name: Secret 변수 사용
+        run: |
+          echo ${{secrets.MY_AGE}}
+          echo ${{secrets.MY_PAY}}
+          
+          
+          
+          
