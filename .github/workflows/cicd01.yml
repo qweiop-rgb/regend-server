@@ -1,4 +1,4 @@
-name: Github Action 테스트 1번.
+name: Depoloy To EC2
 
 on:
   push:
@@ -7,39 +7,19 @@ on:
 
 
 jobs:
-  My-Deploy-Job:
-    runs-on: ubuntu-latest
-
+  deploy:
+    reuns-on: ubuntu-latest
     steps:
-      - name: Hello World 출력
-        run: echo "Hello World"
-
-      - name: 여러개 명령어 추가하기
-        run:
-         echo "Good"
-          echo "Morning"
-
-      - name: GithubAction 내장 변수 사용
-        run:
-          echo $GITHUB_SHA
-          ecno $GITHUB_REPOSITORY
-          echo "3. 워크플로우 실행한 놈 - $GITHUB_ACTOR"
-          echo "4. 현재 실행중인 브랜치 - $GITBUB_REF_NAME"
-          echo "5. 현재 워크플로우 실행번호 - $GITBUB_RUN_NUMBER"
-          echo "6. 워크플로우 발생 이벤트 - $GITBUB_EVENT_NAME"
-          echo "7. 현재 액션이 돌아가는 os - $GITBUB_OS"
-          echo "8. 가상환경 기본작업 경로 - $GITBUB_WORKSPACE"
-
-      - name: Secret 변수 사용
-        run: |
-          echo ${{secrets.MY_AGE}}
-          echo ${{secrets.MY_PAY}}
-
-      - name: 넘이 봐도 되는 변수여
-        run: |
-          echo ${{vars.MY_GRADE}}
-          echo ${{vars.MY_HEGHT}}
-
-          
-          
-          
+      - name: ssh로 EC2돌리기
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{secrets.EC2_HOST}}
+          username: ${{secrets.EC2_USERNAME}}
+          key: ${{secrets.EC2_PRIVATE_KEY}}
+          script_stop:
+          script:
+            cd /home/ubuntu/regend-server
+            git pull origin main
+            .gradlew clean build -x test
+            sudo fuser -k -n top 80 || ture
+            sudo nohup java -jar build/libs/*SNAPSHOT.jar > ./output.log 2>&1 &

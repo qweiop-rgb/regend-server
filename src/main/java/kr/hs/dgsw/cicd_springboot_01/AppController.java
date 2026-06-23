@@ -8,7 +8,8 @@ public class AppController {
     @GetMapping
     public String home() {
         int k = 0;
-        return "Hello World";
+        int j = 0;
+        return "Hello World-CICD01";
     }
 
 }
