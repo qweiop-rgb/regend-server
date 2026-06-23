@@ -8,7 +8,7 @@ on:
 
 jobs:
   deploy:
-    reuns-on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - name: ssh로 EC2돌리기
         uses: appleboy/ssh-action@v1
