@@ -12,6 +12,9 @@ jobs:
     steps:
       - name: ssh로 EC2돌리기
         uses: appleboy/ssh-action@v1
+        env:
+          APRICATION_PROPERTIS: &{{secrets.APRICATION_PROPERTIS}}
+
         with:
           host: ${{secrets.EC2_HOST}}
           username: ${{secrets.EC2_USERNAME}}
@@ -19,7 +22,9 @@ jobs:
           script_stop:
           script:
             cd /home/ubuntu/regend-server
+            rm -rf src/main.resorces/application.yml
             git pull origin main
+            echo "$APRICATION_PROPERTIS" > src/main/resourcation.yml
             .gradlew clean build -x test
             sudo fuser -k -n top 80 || ture
             sudo nohup java -jar build/libs/*SNAPSHOT.jar > ./output.log 2>&1 &
