@@ -13,7 +13,7 @@ jobs:
       - name: ssh로 EC2돌리기
         uses: appleboy/ssh-action@v1
         env:
-          APRICATION_PROPERTIS: &{{secrets.APRICATION_PROPERTIS}}
+          APRICATION_PROPERTIES: &{{secrets.APRICATION_PROPERTIS}}
 
         with:
           host: ${{secrets.EC2_HOST}}
