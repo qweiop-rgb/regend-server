@@ -1,0 +1,7 @@
+server:
+  port: 80
+
+
+gpt-api:
+  access-key: abcde
+  secret-key: 12345
